@@ -1,23 +1,24 @@
 package com.example.tarea3;
 
 import java.util.ArrayList;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Tarea3 {
 
-    ArrayList<Float> Stack = new ArrayList<>();
-
+    int size = 5;
+    String[] stack = new String[size];
 
     @RequestMapping("/")
-    public ArrayList<Float> print() {
+    public String[] print() {
         return printStack();
     }
 
     @RequestMapping("/push")
-    public String add(Float num1) {
-        push(num1);
+    public String add(String var) {
+        push(var);
         return "Added Successfully";
     }
 
@@ -35,21 +36,54 @@ public class Tarea3 {
 
 
 
-    public ArrayList<Float> printStack() {
-        return Stack;
+    public String[] printStack() {
+        return stack;
     }
 
-    public void push(float element) {
-        Stack.add(element);
+    public void push(String element) {
+        if (stack[stack.length - 1] == null) {
+            int n = 0;
+            while (stack[n] != null) {
+                n++;
+            }
+            stack[n] = element;
+        }
+        else {
+            incrSize();
+            push(element);
+        }
     }
 
     public void pop() {
-        if (Stack.size() > 0) {
-            Stack.remove(0);
+        if (stack.length > 0) {
+            int n = 0;
+            while (stack[n] != null) {
+                n++;
+            }
+            stack[n - 1] = null;
         }
     }
 
     public void clear() {
-        Stack.removeAll(Stack);
+        if(stack.length > 5) {
+            resetSize();
+        }
+        for (int i = 0; i < stack.length; i++) {
+            stack[i] = null;
+        }
+    }
+
+    public void incrSize() {
+        size = size + 3;
+        String[] stack_copy = new String[size];
+        for (int i = 0; i < stack.length; i++)
+            stack_copy[i] = stack[i];
+        stack = stack_copy;
+    }
+
+    public void resetSize() {
+        size = 5;
+        String[] stack_copy = new String[size];
+        stack = stack_copy;
     }
 }
