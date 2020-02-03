@@ -2,6 +2,9 @@ package com.example.tarea3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -11,13 +14,13 @@ class Tarea3ApplicationTests {
 
 	@Test
 	void contextLoads() {
-//		Test.push(100);
-//		Test.push(1000);
-//		Test.push((float) 19.95);
-//		assertEquals("[100.0, 1000.0, 19.95]", Test.print().toString());
-//		Test.pop();
-//		assertEquals("[1000.0, 19.95]", Test.print().toString());
-//		Test.clear();
-//		assertEquals("[]", Test.print().toString());
+		Test.push("John", "200");
+		Test.push("Mike", "300");
+		Test.push("Ian", "26.34");
+		assertEquals("[John, 200, Mike, 300, Ian, 26.34]", Arrays.toString(Test.print()));
+		Test.pop();
+		assertEquals("[John, 200, Mike, 300, null, null]", Arrays.toString(Test.print()));
+		Test.clear();
+		assertEquals("[null, null, null, null, null, null]", Arrays.toString(Test.print()));
 	}
 }

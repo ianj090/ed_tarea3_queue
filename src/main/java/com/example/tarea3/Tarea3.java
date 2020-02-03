@@ -1,25 +1,28 @@
 package com.example.tarea3;
 
-import java.util.ArrayList;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Tarea3 {
 
-    int size = 5;
-    String[] stack = new String[size];
+    int size = 6;
+    String[] queue = new String[size];
 
     @RequestMapping("/")
     public String[] print() {
-        return printStack();
+        return printQueue();
     }
 
     @RequestMapping("/push")
-    public String add(String var) {
-        push(var);
-        return "Added Successfully";
+    public String add(String name, String amount) {
+        if (name != null) {
+            if (amount != null) {
+                push(name, amount);
+                return "Added Successfully";
+            }
+        }
+        return "Please add a name and amount";
     }
 
     @RequestMapping("/pop")
@@ -36,54 +39,59 @@ public class Tarea3 {
 
 
 
-    public String[] printStack() {
-        return stack;
+    public String[] printQueue() {
+        return queue;
     }
 
-    public void push(String element) {
-        if (stack[stack.length - 1] == null) {
+    public void push(String person, String money) {
+        if (queue[queue.length - 2] == null) {
             int n = 0;
-            while (stack[n] != null) {
+            while (queue[n] != null) {
                 n++;
             }
-            stack[n] = element;
+            queue[n] = person;
+            queue[n+1] = money;
         }
         else {
             incrSize();
-            push(element);
+            push(person, money);
         }
     }
 
     public void pop() {
-        if (stack.length > 0) {
+        if (queue.length > 0) {
             int n = 0;
-            while (stack[n] != null) {
-                n++;
+            for (int i = 0; i < queue.length; i+=2) {
+                if (queue[i] != null) {
+                    n+=2;
+                }
             }
-            stack[n - 1] = null;
+            if (n > 0) {
+                queue[n - 1] = null;
+                queue[n - 2] = null;
+            }
         }
     }
 
     public void clear() {
-        if(stack.length > 5) {
+        if(queue.length > 6) {
             resetSize();
         }
-        for (int i = 0; i < stack.length; i++) {
-            stack[i] = null;
+        for (int i = 0; i < queue.length; i++) {
+            queue[i] = null;
         }
     }
 
     public void incrSize() {
-        size = size + 3;
+        size = size + 4;
         String[] stack_copy = new String[size];
-        for (int i = 0; i < stack.length; i++)
-            stack_copy[i] = stack[i];
-        stack = stack_copy;
+        for (int i = 0; i < queue.length; i++)
+            stack_copy[i] = queue[i];
+        queue = stack_copy;
     }
 
     public void resetSize() {
-        size = 5;
-        String[] stack_copy = new String[size];
-        stack = stack_copy;
+        size = 6;
+        queue = new String[size];
     }
 }

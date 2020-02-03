@@ -1,6 +1,6 @@
 Ian Jenatz
 
-Tarea 3 - Stack. En relación a la primera opción de Stack.
+Tarea 3 - Queue. En relación a la segunda opción de Queue.
 
     Aplicación Principal - 
 
